@@ -15,8 +15,12 @@ public class Maze {
     }
     public Position getGoalPosition(){
         return end;
-
     }
+
+    public int[][] getArray() {
+        return array;
+    }
+
     public void print(){
         String prt="";
         for (int row = 0; row < array.length ; row++) {

@@ -4,6 +4,12 @@ public class EmptyMazeGenerator extends AMazeGenerator {
     public EmptyMazeGenerator() {
     }
 
+    /**
+     *
+     * @param rows
+     * @param columns
+     * @return empty Maze
+     */
     @Override
     public Maze generate(int rows, int columns) {
         int[][] myMaze=new int[rows][columns];
