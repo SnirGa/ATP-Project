@@ -13,6 +13,14 @@ public class MazeState extends AState {
         this.pos=pos;
     }
 
+    public MazeState(Position pos,int cost) {
+            //super(state);
+            this.cameFrom=null;
+            this.cost=cost;
+            this.pos=pos;
+        }
+
+
 
     public void setParent (AState parent){
         this.cameFrom=parent;

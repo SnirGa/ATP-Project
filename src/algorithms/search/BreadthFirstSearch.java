@@ -2,20 +2,37 @@ package algorithms.search;
 import java.util.*;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
+    protected PriorityQueue<AState> openList;
+    ArrayList<AState> path;
+    HashSet<AState> visited;
+
+
     public BreadthFirstSearch() {
+        this.path=new ArrayList<>();
+        this.visited=new HashSet<>();
+        openList=new PriorityQueue<>();
+
+    }
+
+    protected AState popOpenList(){
+        visitedNodes++;
+        return openList.poll();
     }
 
     @Override
     public Solution solve(ISearchable s) {
+        if (s==null){
+            throw new IllegalArgumentException("s must have a value");
+        }
         AState goal=BFSSearch(s);
         AState start=s.getStartState();
-        ArrayList<AState> path = getPath(start,goal);
+        path = getPath(start,goal);
         Solution solution = new Solution(path);
         return solution;
     }
 
     private AState BFSSearch(ISearchable s) {
-        HashSet<AState> visited = new HashSet<>();
+        visited = new HashSet<>();
         AState start = s.getStartState();
         AState goal = s.getGoalState();
         visited.add(start); //marks start as visited
@@ -47,38 +64,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         return null;
     }
 
-
-    private ArrayList<AState> getPath(AState start,AState goal) {
-        //AState start = s.getStartState();
-        //AState goal = s.getGoalState();
-        ArrayList<AState> path = new ArrayList<>();
-        if (goal.cameFrom == null) {
-            return path;
-        }
-        Stack<AState> stack = new Stack<>();
-        AState curr = goal;
-        while (!(curr.equals(start))) {
-            stack.add(curr);
-            curr = curr.cameFrom;
-        }
-        stack.add(curr);
-        while (!stack.isEmpty()){
-            AState temp=stack.pop();
-            path.add(temp);
-        }
-        System.out.println(stack.toString());
-        return path;
-    }
-
-    @Override
-    public void setAStateCost(AState as) {
-        if (as.getParent()==null){
-            as.setCost(0);
-        }
-        else {
-            as.setCost(as.getParent().getCost() + 1);
-        }
-    }
 
 
 }

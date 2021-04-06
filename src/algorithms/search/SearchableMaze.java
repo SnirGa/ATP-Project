@@ -60,19 +60,23 @@ public class SearchableMaze implements ISearchable {
                 RState = new MazeState(RPos);
                 successors.add(RState);
             }
+            updateDiag(successors,mz.getPosition(),1,1);
+            updateDiag(successors,mz.getPosition(),1,-1);
+            updateDiag(successors,mz.getPosition(),-1,1);
+            updateDiag(successors,mz.getPosition(),-1,-1);
         }
-        if (successors.contains(RState)) {
-            if (this.maze.getArray()[RState.getPosition().getRowIndex() - 1][RState.getPosition().getColumnIndex()] == 0) {
-                Position TRPosition = new Position(RState.getPosition().getRowIndex() - 1, RState.getPosition().getColumnIndex());
-                MazeState TRState = new MazeState(TRPosition);
-            }
-            if (this.maze.getArray()[RState.getPosition().getRowIndex() + 1][RState.getPosition().getColumnIndex()] == 0) {
-                Position TRPosition = new Position(RState.getPosition().getRowIndex() - 1, RState.getPosition().getColumnIndex());
-                MazeState TRState = new MazeState(TRPosition);
-            }
-        }
-            return successors;
-        }
+        //if (successors.contains(RState)) {
+          //  if (this.maze.getArray()[RState.getPosition().getRowIndex() - 1][RState.getPosition().getColumnIndex()] == 0) {
+            //    Position TRPosition = new Position(RState.getPosition().getRowIndex() - 1, RState.getPosition().getColumnIndex());
+              //  MazeState TRState = new MazeState(TRPosition);
+            //}
+            //if (this.maze.getArray()[RState.getPosition().getRowIndex() + 1][RState.getPosition().getColumnIndex()] == 0) {
+              //  Position TRPosition = new Position(RState.getPosition().getRowIndex() - 1, RState.getPosition().getColumnIndex());
+                //MazeState TRState = new MazeState(TRPosition);
+            //}
+       // }
+        return successors;
+    }
 
     private boolean isValid(int RowOrColumn, int NeighborDistance) {
         int rowsNum = this.maze.getArray().length;
@@ -90,4 +94,26 @@ public class SearchableMaze implements ISearchable {
         }
         return false;
     }
+
+    private boolean isPassage(int row,int column) {
+        if (this.maze.getArray()[row][column] == 0) {
+            return true;
+        }
+        return false;
+    }
+    private void updateDiag(ArrayList<AState> successors,Position pos,int rowDistance,int colDistance){
+        int posRow=pos.getRowIndex();
+        int posColumn=pos.getColumnIndex();
+        if(isValid(posRow,rowDistance) && isValid(posColumn,colDistance)){
+            if(isPassage(posRow+rowDistance,posColumn) || isPassage(posRow,posColumn+colDistance)){
+                if(isPassage(posRow+rowDistance,posColumn+colDistance)){
+                    Position diagPos=new Position(posRow+rowDistance,posColumn+colDistance);
+                    MazeState diagState=new MazeState(diagPos);
+                    successors.add(diagState);
+                }
+            }
+        }
+    }
 }
+
+
