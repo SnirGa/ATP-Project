@@ -1,11 +1,9 @@
 package algorithms.search;
 
 
-import algorithms.mazeGenerators.Position;
-
 import java.util.Objects;
 
-public abstract class AState implements Comparable<AState>{
+public abstract class AState {
     //protected String state;
     protected double cost;
     protected AState cameFrom;
@@ -14,16 +12,13 @@ public abstract class AState implements Comparable<AState>{
     abstract public  MazeState getParent();
     abstract public  void setCost(double newCost);
     abstract public double getCost();
-    abstract public int compareTo(AState as);
-
     abstract public boolean equals(Object obj);
 
     @Override
     public int hashCode() {
         return Objects.hash(cameFrom,cost);
     }
+    public AState(){}
 
 
-    //public AState(String state) {this.state = state;}
-    public AState(){};
 }

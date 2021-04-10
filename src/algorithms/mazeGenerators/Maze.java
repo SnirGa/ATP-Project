@@ -21,6 +21,10 @@ public class Maze {
         return array;
     }
 
+
+    /**
+     * prints the maze
+     */
     public void print(){
         String prt="";
         for (int row = 0; row < array.length ; row++) {

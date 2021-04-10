@@ -6,8 +6,8 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     /**
      *
-     * @param rows
-     * @param columns
+     * @param rows- the number of rows in the created maze
+     * @param columns- the number of columns in the created maze
      * @return simple Maze
      */
     @Override

@@ -2,28 +2,51 @@ package algorithms.search;
 import java.util.*;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
+    protected Queue<AState> openList;
+
     public BreadthFirstSearch() {
+        openList=new LinkedList<>();
+
     }
 
+    /**
+     * removes an element from the openList
+     * @return AState from the openList
+     */
+    protected AState popOpenList(){
+        visitedNodes++;
+        return openList.poll();
+    }
+
+    /**
+     *
+     * @param s-searchable maze
+     * @return solution path of the maze
+     */
     @Override
     public Solution solve(ISearchable s) {
+        if (s==null){
+            return null;
+        }
         AState goal=BFSSearch(s);
         AState start=s.getStartState();
-        ArrayList<AState> path = getPath(start,goal);
+        path = getPath(start,goal);
         Solution solution = new Solution(path);
         return solution;
     }
 
-    private AState BFSSearch(ISearchable s) {
-        HashSet<AState> visited = new HashSet<>();
+    /**
+     * BFS-Algorithm
+     * @param s-searchable maze
+     * @return AState if it is equal to the goal
+     */
+        private AState BFSSearch(ISearchable s) {
+        visited = new HashSet<>();
+        this.visitedNodes=0;
         AState start = s.getStartState();
         AState goal = s.getGoalState();
         visited.add(start); //marks start as visited
         openList.add(start);
-        //ArrayList<AState> successors = s.getAllSuccessors(start);
-        //openList.addAll(successors);
-        //successors.clear();
-        //AState current = popOpenList();
         AState nextInLine;
         ArrayList<AState> successors;
         while (!(openList.isEmpty())) {
@@ -33,12 +56,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 return nextInLine;
             }
             successors = s.getAllSuccessors(nextInLine);
-            for (int i = 0; i < successors.size(); i++) {
+            for(int i = 0; i < successors.size(); i++) {
                 if (!(visited.contains(successors.get(i)))) {
                     this.setAstateParent(successors.get(i),nextInLine);
-                    this.setAStateCost(successors.get(i));
-                    //successors.get(i).cost += 1;
-                    //successors.get(i).cameFrom = nextInLine;
                     visited.add(successors.get(i));
                     openList.add(successors.get(i));
                 }
@@ -47,38 +67,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         return null;
     }
 
-
-    private ArrayList<AState> getPath(AState start,AState goal) {
-        //AState start = s.getStartState();
-        //AState goal = s.getGoalState();
-        ArrayList<AState> path = new ArrayList<>();
-        if (goal.cameFrom == null) {
-            return path;
-        }
-        Stack<AState> stack = new Stack<>();
-        AState curr = goal;
-        while (!(curr.equals(start))) {
-            stack.add(curr);
-            curr = curr.cameFrom;
-        }
-        stack.add(curr);
-        while (!stack.isEmpty()){
-            AState temp=stack.pop();
-            path.add(temp);
-        }
-        System.out.println(stack.toString());
-        return path;
-    }
-
-    @Override
-    public void setAStateCost(AState as) {
-        if (as.getParent()==null){
-            as.setCost(0);
-        }
-        else {
-            as.setCost(as.getParent().getCost() + 1);
-        }
-    }
 
 
 }

@@ -185,18 +185,6 @@ public class MyMazeGenerator extends AMazeGenerator {
         }
     }
 }
-    /*
-    private Position generateRandomPosition(int rows, int columns) {
-        int randRow = (int) (Math.random() * rows);
-        int randColumn = (int) (Math.random() * columns);
-        if (randRow > randColumn) {
-            randColumn = 0;
-        } else {
-            randRow = 0;
-        }
-        return new Position(randRow, randColumn);
-    }
-     */
 
 
 
