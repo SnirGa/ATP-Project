@@ -1,21 +1,21 @@
-package algorithms.search;
-import algorithms.mazeGenerators.Position;
+package algorithms.maze3D;
 
-public class MazeState extends AState{
-    private Position pos;
-    public MazeState(Position pos) {
-        //super(state);
+import algorithms.mazeGenerators.Position;
+import algorithms.search.AState;
+
+public class Maze3DState extends AState{
+    private Position3D pos;
+    public Maze3DState(Position3D pos) {
         this.cameFrom=null;
         this.cost=0;
         this.pos=pos;
     }
 
-    public MazeState(Position pos,int cost) {
-            //super(state);
-            this.cameFrom=null;
-            this.cost=cost;
-            this.pos=pos;
-        }
+    public Maze3DState(Position3D pos,int cost) {
+        this.cameFrom=null;
+        this.cost=cost;
+        this.pos=pos;
+    }
 
 
 
@@ -23,8 +23,8 @@ public class MazeState extends AState{
         this.cameFrom=parent;
     }
 
-    public MazeState getParent(){
-        return (MazeState) cameFrom;
+    public Maze3DState getParent(){
+        return (Maze3DState) cameFrom;
     }
 
     public  void setCost(double newCost){
@@ -35,7 +35,7 @@ public class MazeState extends AState{
         return this.cost;
     }
 
-    public Position getPosition() {
+    public Position3D getPosition() {
         return pos;
     }
 
@@ -46,8 +46,8 @@ public class MazeState extends AState{
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof MazeState) {
-            MazeState ms = (MazeState) obj;
+        if (obj instanceof Maze3DState) {
+            Maze3DState ms = (Maze3DState) obj;
             return this.getPosition().equals(ms.getPosition());
         }
         return false;
@@ -57,11 +57,12 @@ public class MazeState extends AState{
     public int hashCode() {
         int row=this.getPosition().getRowIndex();
         int col=this.getPosition().getColumnIndex();
-        return row+col;
+        int depth=this.getPosition().getDepthIndex();
+        return  row+col+depth;
     }
 
     @Override
     public String toString() {
-        return "{"+this.getPosition().getRowIndex()+","+this.getPosition().getColumnIndex()+"}";
+        return "{"+this.getPosition().getDepthIndex()+","+this.getPosition().getRowIndex()+","+this.getPosition().getColumnIndex()+"}";
     }
 }

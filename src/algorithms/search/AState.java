@@ -9,7 +9,7 @@ public abstract class AState {
     protected AState cameFrom;
 
     abstract public void setParent (AState parent);
-    abstract public  MazeState getParent();
+    abstract public  AState getParent();
     abstract public  void setCost(double newCost);
     abstract public double getCost();
     abstract public boolean equals(Object obj);

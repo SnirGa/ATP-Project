@@ -16,15 +16,13 @@ public class SearchableMaze implements ISearchable {
     @Override
     public AState getStartState() {
         Position startPos = this.maze.getStartPosition();
-        AState startState = new MazeState(startPos);
-        return startState;
+        return new MazeState(startPos);
     }
 
     @Override
     public AState getGoalState() {
         Position goalPos = this.maze.getGoalPosition();
-        AState goalState = new MazeState(goalPos);
-        return goalState;
+        return new MazeState(goalPos);
     }
 
     /**
@@ -37,7 +35,6 @@ public class SearchableMaze implements ISearchable {
         MazeState mz = (MazeState) ms;
         int currRow = mz.getPosition().getRowIndex();
         int currColumn = mz.getPosition().getColumnIndex();
-        MazeState RState = null;
         ArrayList<AState> successors = new ArrayList<>();
 
         if (isValid(currRow, -1,true)) { //top
@@ -53,7 +50,7 @@ public class SearchableMaze implements ISearchable {
         if (isValid(currColumn, 1,false)) { //right
             Position RPos = new Position(currRow, currColumn + 1);
             if (isPassage(RPos)) {
-                RState = new MazeState(RPos,10);
+                MazeState RState = new MazeState(RPos,10);
                 successors.add(RState);
             }
         }

@@ -1,9 +1,9 @@
 package algorithms.mazeGenerators;
 
 public class Maze {
-    int[][] array;
-    Position start;
-    Position end;
+    private int[][] array;
+    private Position start;
+    private Position end;
 
     public Maze(int[][] array,Position start,Position end) {
         this.array = array;
@@ -30,10 +30,10 @@ public class Maze {
         for (int row = 0; row < array.length ; row++) {
             prt+="{";
             for (int col = 0; col <array[0].length ; col++) {
-                if(col==start.column && row==start.row){
+                if(col==start.getColumnIndex() && row==start.getRowIndex()){
                     prt+=" S";
                 }
-                else if(col==end.column && row==end.row) {
+                else if(col==end.getColumnIndex() && row==end.getRowIndex()) {
                     prt += " E";
                 }
                 else{

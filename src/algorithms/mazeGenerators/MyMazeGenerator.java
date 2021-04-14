@@ -16,7 +16,7 @@ public class MyMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {
         if (rows<2 || columns<2){
-            throw new IllegalArgumentException("Maze should be 2x2 at least");
+            return null;
         }
 
         int[][] myMaze = new int[rows][columns];
@@ -35,6 +35,10 @@ public class MyMazeGenerator extends AMazeGenerator {
             endColumn=endColumn-1;
         }
         Position end = new Position(endRow,endColumn); //set the position if the end cell
+        if (end.equals(start)){
+            end=new Position(end.getRowIndex()+1,end.getColumnIndex()+1);
+            myMaze[0][1]=0;
+        }
         //Position end =new Position(-1,-1);
         List <Position> occupied=new ArrayList<>();
         updateMaze(occupied,start,myMaze);
@@ -43,7 +47,7 @@ public class MyMazeGenerator extends AMazeGenerator {
            Position randomPos=occupied.get((int)randomIndex);
            occupied.remove(randomPos);
            updateMaze(occupied,randomPos,myMaze);
-           if(randomPos.row==end.row && randomPos.column== end.column){
+           if(randomPos.getRowIndex()==end.getRowIndex() && randomPos.getColumnIndex()== end.getColumnIndex()){
                break;
            }
 
@@ -61,7 +65,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param arr- 2D array of the future maze
      */
     private void updateMaze (List < Position > occupied,Position pos,int[][] arr){
-            arr[pos.row][pos.column]=0;
+            arr[pos.getRowIndex()][pos.getColumnIndex()]=0;
             updateNeighbors(occupied,pos,arr);
     }
 
@@ -81,7 +85,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (!(vacant.isEmpty())) {
             int num = (int) (Math.random() * vacant.size());
             Position randVacant = vacant.get(num);
-            arr[randVacant.row][randVacant.column] = 0;
+            arr[randVacant.getRowIndex()][randVacant.getColumnIndex()] = 0;
         }
     }
 
@@ -93,17 +97,17 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param arr- the maze array
      */
     private void updateLeftNeighbor(List < Position > occupied,List < Position > vacant,Position pos,int[][] arr) {
-        if (pos.column < 2) {
+        if (pos.getColumnIndex() < 2) {
             return;
         }
-        if (arr[pos.row][pos.column-2] == 1) {
-            Position leftNeighbor = new Position(pos.row, pos.column - 2);
+        if (arr[pos.getRowIndex()][pos.getColumnIndex()-2] == 1) {
+            Position leftNeighbor = new Position(pos.getRowIndex(), pos.getColumnIndex() - 2);
             occupied.add(leftNeighbor);
         }
         else {
-            if (arr[pos.row][pos.column - 1] == 1) {
+            if (arr[pos.getRowIndex()][pos.getColumnIndex() - 1] == 1) {
                 //arr[pos.row][pos.column - 1]=0;
-                Position vac1=new Position(pos.row,pos.column-1);
+                Position vac1=new Position(pos.getRowIndex(),pos.getColumnIndex()-1);
                 vacant.add(vac1);
 
             }
@@ -119,17 +123,17 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
     private void updateRightNeighbor(List < Position > occupied,List < Position > vacant,Position pos,int[][] arr) {
         int columnsNum = arr[0].length;
-        if (pos.column >= columnsNum - 2) {
+        if (pos.getColumnIndex() >= columnsNum - 2) {
             return;
         }
-        if (arr[pos.row][pos.column + 2] == 1) {
-            Position rightNeighbor = new Position(pos.row, pos.column + 2);
+        if (arr[pos.getRowIndex()][pos.getColumnIndex() + 2] == 1) {
+            Position rightNeighbor = new Position(pos.getRowIndex(), pos.getColumnIndex() + 2);
             occupied.add(rightNeighbor);
         }
         else {
-            if (arr[pos.row][pos.column + 1] == 1 ) {
+            if (arr[pos.getRowIndex()][pos.getColumnIndex() + 1] == 1 ) {
                 //arr[pos.row][pos.column +1]=0;
-                Position vac2=new Position(pos.row,pos.column+1);
+                Position vac2=new Position(pos.getRowIndex(),pos.getColumnIndex()+1);
                 vacant.add(vac2);
 
 
@@ -145,16 +149,16 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param arr- the maze array
      */
     private void updateTopNeighbor(List < Position > occupied,List < Position > vacant,Position pos,int[][] arr) {
-        if (pos.row < 2) {
+        if (pos.getRowIndex() < 2) {
             return;
         }
-        if (arr[pos.row - 2][pos.column] == 1) {
-            Position topNeighbor = new Position(pos.row - 2, pos.column);
+        if (arr[pos.getRowIndex() - 2][pos.getColumnIndex()] == 1) {
+            Position topNeighbor = new Position(pos.getRowIndex() - 2, pos.getColumnIndex());
             occupied.add(topNeighbor);
         } else {
-            if (arr[pos.row - 1][pos.column] == 1) {
+            if (arr[pos.getRowIndex() - 1][pos.getColumnIndex()] == 1) {
                 //arr[pos.row-1][pos.column]=0;
-                Position vac3=new Position(pos.row-1,pos.column);
+                Position vac3=new Position(pos.getRowIndex()-1,pos.getColumnIndex());
                 vacant.add(vac3);
             }
         }
@@ -169,17 +173,17 @@ public class MyMazeGenerator extends AMazeGenerator {
      */
     private void updateBottomNeighbor(List < Position > occupied,List < Position > vacant,Position pos,int[][] arr) {
         int rowsNum = arr.length;
-        if (pos.row >= rowsNum - 2) {
+        if (pos.getRowIndex() >= rowsNum - 2) {
             return;
         }
-        if (arr[pos.row + 2][pos.column] == 1) {
-            Position bottomNeighbor = new Position(pos.row + 2, pos.column);
+        if (arr[pos.getRowIndex() + 2][pos.getColumnIndex()] == 1) {
+            Position bottomNeighbor = new Position(pos.getRowIndex() + 2, pos.getColumnIndex());
             occupied.add(bottomNeighbor);
         }
         else {
-            if (arr[pos.row + 1][pos.column] == 1) {
+            if (arr[pos.getRowIndex() + 1][pos.getColumnIndex()] == 1) {
                 //arr[pos.row + 1][pos.column] = 0;
-                Position vac4=new Position(pos.row+1,pos.column);
+                Position vac4=new Position(pos.getRowIndex()+1,pos.getColumnIndex());
                 vacant.add(vac4);
             }
         }
