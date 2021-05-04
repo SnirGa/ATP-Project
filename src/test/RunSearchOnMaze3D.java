@@ -1,16 +1,14 @@
 package test;
 
-import algorithms.maze3D.IMazeGenerator3D;
+import algorithms.maze3D.IMaze3DGenerator;
 import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
 import algorithms.maze3D.SearchableMaze3D;
 import algorithms.search.*;
 
-import java.util.ArrayList;
-
 public class RunSearchOnMaze3D {
     public static void main(String[] args) {
-        IMazeGenerator3D mg = new MyMaze3DGenerator();
+        IMaze3DGenerator mg = new MyMaze3DGenerator();
         Maze3D maze = mg.generate(100,100, 100);
         SearchableMaze3D searchableMaze3D = new SearchableMaze3D(maze);
         solveProblem(searchableMaze3D, new BreadthFirstSearch());

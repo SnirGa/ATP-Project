@@ -41,7 +41,7 @@ public class Maze3DState extends AState{
 
     /**
      *
-     * @param obj- obj need to be MazeState
+     * @param obj- obj need to be 3D MazeState
      * @return true if equal,else-false
      */
     @Override

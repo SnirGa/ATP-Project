@@ -21,7 +21,6 @@ public class EmptyMazeGenerator extends AMazeGenerator {
                 myMaze[row][column]=0;
             }
         }
-        Maze maze=new Maze(myMaze,start,end);
-        return maze;
+        return new Maze(myMaze,start,end);
     }
 }

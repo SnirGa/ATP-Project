@@ -8,4 +8,10 @@ public class GeneralCheckingFunctions {
         return weChoseToDoTheMaze3DAssignment;
     }
 
+    public static String getGithubLink(){
+//change the <username> in the link to the username of the student who created the github project:
+        String githubLink = "https://github.com/SnirGa/ATP-Project.git";
+        return githubLink;
+    }
 }
+

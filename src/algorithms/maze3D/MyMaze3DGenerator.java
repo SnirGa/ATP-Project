@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyMaze3DGenerator extends AMaze3DGenerator {
-
+    /**
+     * Creates 3DMaze
+     * @param depth-the depth of the 3D maze
+     * @param row-the row of the 3D maze
+     * @param column-the column of the 3D maze
+     * @return 3D Maze
+     */
     @Override
     public Maze3D generate(int depth, int row, int column) {
         if (row < 2 || column < 2 || depth < 2) {
@@ -22,6 +28,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         int endDepth = depth - 1;
         int endRow = row - 1;
         int endColumn = column - 1;
+        //make sure that the end Position will be in even indexes
         if (endDepth % 2 != 0) {
             endDepth--;
         }
@@ -34,7 +41,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         Position3D end = new Position3D(endDepth, endRow, endColumn);
         List<Position3D> occupied = new ArrayList<>();
         updateMaze(occupied, start, myMaze);
-        while (!(occupied.isEmpty())) {
+        while (!(occupied.isEmpty())) { //updates the occupied neighbors
             double randomIndex = Math.random() * occupied.size();
             Position3D randomPos = occupied.get((int) randomIndex);
             occupied.remove(randomPos);
@@ -44,15 +51,26 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
 
         }
-
         return new Maze3D(myMaze, start, end);
     }
 
+    /**
+     *update the 3D maze
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     */
     private void updateMaze(List<Position3D> occupied, Position3D pos, int[][][] arr) {
         arr[pos.getDepthIndex()][pos.getRowIndex()][pos.getColumnIndex()] = 0;
         updateNeighbors(occupied, pos, arr);
     }
 
+    /**
+     *update all the neighbors of a specific 3D position
+     * @param occupied- occupied neighbors list
+     * @param pos- specific 3D position in the maze
+     * @param arr - map that represent the maze
+     */
     private void updateNeighbors(List < Position3D > occupied,Position3D pos,int[][][] arr) {
 
         List<Position3D> vacant=new ArrayList<>();
@@ -70,6 +88,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         }
     }
 
+    /**
+     *update the left neighbor
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     * @param vacant-list of the neighbors with value 0
+     */
     private void updateLeftNeighbor(List < Position3D > occupied,List < Position3D > vacant,Position3D pos,int[][][] arr) {
         if (pos.getColumnIndex() < 2) {
             return;
@@ -86,7 +111,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
     }
-
+    /**
+     *update the right neighbor
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     * @param vacant-list of the neighbors with value 0
+     */
     private void updateRightNeighbor(List < Position3D > occupied,List < Position3D > vacant,Position3D pos,int[][][] arr) {
         int columnsNum = arr[0][0].length;
         if (pos.getColumnIndex() >= columnsNum - 2) {
@@ -104,7 +135,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
     }
-
+    /**
+     *update the top neighbor
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     * @param vacant-list of the neighbors with value 0
+     */
     private void updateTopNeighbor(List < Position3D > occupied,List < Position3D > vacant,Position3D pos,int[][][] arr) {
         if (pos.getRowIndex() < 2) {
             return;
@@ -120,7 +157,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
     }
-
+    /**
+     *update the bottom neighbor
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     * @param vacant-list of the neighbors with value 0
+     */
     private void updateBottomNeighbor(List < Position3D > occupied,List < Position3D > vacant,Position3D pos,int[][][] arr) {
         int rowsNum = arr[0].length;
         if (pos.getRowIndex() >= rowsNum - 2) {
@@ -137,7 +180,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
     }
-
+    /**
+     *update the lower floor neighbor
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     * @param vacant-list of the neighbors with value 0
+     */
     private void updateBottom3DNeighbor(List < Position3D > occupied,List < Position3D > vacant,Position3D pos,int[][][] arr){
         int depthNum = arr.length;
         if (pos.getDepthIndex()>= depthNum - 2) {
@@ -154,7 +203,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
     }
-
+    /**
+     *update the upper floor neighbor
+     * @param occupied- occupied neighbors list
+     * @param pos- specific position in the maze
+     * @param arr - map that represent the maze
+     * @param vacant-list of the neighbors with value 0
+     */
     private void updateTop3DNeighbor(List < Position3D > occupied,List < Position3D > vacant,Position3D pos,int[][][] arr){
         if (pos.getDepthIndex()<2){
             return;

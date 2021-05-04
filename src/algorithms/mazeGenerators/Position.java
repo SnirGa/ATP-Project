@@ -6,7 +6,7 @@ public class Position {
 
     public Position(int row, int column) {
         if (row < 0 || column < 0) {
-            throw new IllegalArgumentException("row and column must be bigger or equal to 0");
+            return;
         }
         this.row = row;
         this.column = column;

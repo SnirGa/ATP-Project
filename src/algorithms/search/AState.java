@@ -4,7 +4,6 @@ package algorithms.search;
 import java.util.Objects;
 
 public abstract class AState {
-    //protected String state;
     protected double cost;
     protected AState cameFrom;
 

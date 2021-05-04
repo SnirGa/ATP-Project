@@ -15,6 +15,9 @@ public class Maze3D {
         return Map;
     }
 
+    /**
+     * print the 3D maze
+     */
     public void print(){
         System.out.println("{");
         for(int depth = 0; depth < Map.length; depth++){

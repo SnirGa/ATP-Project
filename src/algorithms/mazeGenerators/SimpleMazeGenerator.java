@@ -30,7 +30,6 @@ public class SimpleMazeGenerator extends AMazeGenerator {
             myMaze[row][columns/2]=0;
         }
 
-        Maze maze=new Maze(myMaze,start,end);
-        return maze;
+        return new Maze(myMaze,start,end);
     }
 }

@@ -29,8 +29,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
      * @return the path
      */
      protected ArrayList<AState> getPath(AState start,AState goal) {
-        //AState start = s.getStartState();
-        //AState goal = s.getGoalState();
          ArrayList<AState> path = new ArrayList<>();
          if (start==null || goal==null){
              return path;

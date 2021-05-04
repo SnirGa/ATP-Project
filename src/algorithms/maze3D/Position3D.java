@@ -1,7 +1,4 @@
 package algorithms.maze3D;
-
-import algorithms.mazeGenerators.Position;
-
 public class Position3D {
     private int DepthIndex;
     private int RowIndex;

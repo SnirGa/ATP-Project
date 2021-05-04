@@ -89,13 +89,12 @@ public class SearchableMaze3D implements ISearchable {
         }
 
         /**
-         *
+         *check if the route given is valid
          * @param DRC- row or column or depth index
          * @param NeighborDistance- the distance of the neighbor from the state
          * @param flag- if 0 checks the depth else if 1-checks the rows, if else 2 checks the columns
          * @return true if the position inside the array, else-false
          */
-
         private boolean isValid(int DRC, int NeighborDistance,int flag) {
             int depthNum = this.maze3d.getMap().length;
             int rowsNum = this.maze3d.getMap()[0].length;

@@ -31,8 +31,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState goal=BFSSearch(s);
         AState start=s.getStartState();
         path = getPath(start,goal);
-        Solution solution = new Solution(path);
-        return solution;
+        return new Solution(path);
     }
 
     /**

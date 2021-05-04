@@ -19,12 +19,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
     public Solution solve(ISearchable s) {
         AState start = s.getStartState();
         AState goal = DFSSearch(s);
-        //if (goal==null || start==null){
-
-        //}
         this.path = getPath(start, goal);
-        Solution solution = new Solution(path);
-        return solution;
+        return new Solution(path);
     }
 
     /**
@@ -34,7 +30,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
      */
     private AState DFSSearch(ISearchable s) {
         if (s == null) {
-            throw new IllegalArgumentException("domain must have a value");
+            return null;
         }
         this.visited=new HashSet<>();
         this.visitedNodes=0;
