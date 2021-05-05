@@ -150,7 +150,7 @@ public class Maze {
 
     }
 
-    public byte[] intToByteArr(int conv){
+    private byte[] intToByteArr(int conv){
         ArrayList<Byte> temp=new ArrayList<>();
         while(conv>255){
             byte b=(byte)255;

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MyDecompressorInputStream extends InputStream {
+public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
 
-    public MyDecompressorInputStream(InputStream in) {
+    public SimpleDecompressorInputStream(InputStream in) {
         this.in = in;
     }
 
