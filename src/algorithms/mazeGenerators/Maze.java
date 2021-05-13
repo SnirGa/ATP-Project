@@ -1,8 +1,9 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Maze {
+public class Maze implements Serializable {
     private int[][] array;
     private Position start;
     private Position end;
@@ -192,4 +193,30 @@ public class Maze {
         }
         return count;
     }
-}
+
+    public String toString() {
+        //return "S"+array.toString().hashCode();
+        //return "1";
+
+        String prt="";
+        for (int row = 0; row < array.length ; row++) {
+            prt+="{";
+            for (int col = 0; col <array[0].length ; col++) {
+                if(col==start.getColumnIndex() && row==start.getRowIndex()){
+                    prt+=" S";
+                }
+                else if(col==end.getColumnIndex() && row==end.getRowIndex()) {
+                    prt += " E";
+                    prt+= array[row][col];
+                }
+                else{
+                    prt+=" ";
+                    prt+=array[row][col];
+                }
+            }
+            prt+=" }\n";
+        }
+        return prt;
+        }
+
+    }
